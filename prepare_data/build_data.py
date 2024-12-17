@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 # coding: utf-8
 # File: build_data.py
-# Author: lhy<lhy_in_blcu@126.com,https://huangyong.github.io>
-# Date: 18-10-3
+# Original Author: lhy<lhy_in_blcu@126.com, https://huangyong.github.io>
+# Author: Tygors
+# Modified by Tygors In: 2024-12
+
 import pymongo
 from lxml import etree
 import os
@@ -14,7 +16,7 @@ class MedicalGraph:
         cur_dir = '/'.join(os.path.abspath(__file__).split('/')[:-1])
         self.db = self.conn['medical']
         self.col = self.db['data']
-        first_words = [i.strip() for i in open(os.path.join(cur_dir, 'first_name.txt'))]
+        first_words = [i.strip() for i in open(os.path.join(cur_dir, 'first_name.txt', encoding="utf-8"))]
         alphabets = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y', 'z']
         nums = ['1','2','3','4','5','6','7','8','9','0']
         self.stop_words = first_words + alphabets + nums

@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 # coding: utf-8
-# File: maxmatch.py
-# Author: lhy<lhy_in_blcu@126.com,https://huangyong.github.io>
-# Date: 18-3-26
+# File: max_cut.py
+# Original Author: lhy<lhy_in_blcu@126.com, https://huangyong.github.io>
+# Author: Tygors
+# Modified by Tygors In: 2024-12
 
 class CutWords:
     def __init__(self):
@@ -13,7 +14,7 @@ class CutWords:
     def load_words(self, dict_path):
         words = list()
         max_len = 0
-        for line in open(dict_path):
+        for line in open(dict_path, encoding="utf-8"):
             wd = line.strip()
             if not wd:
                 continue

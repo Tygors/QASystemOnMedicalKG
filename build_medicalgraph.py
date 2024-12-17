@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 # coding: utf-8
-# File: MedicalGraph.py
-# Author: lhy<lhy_in_blcu@126.com,https://huangyong.github.io>
-# Date: 18-10-3
+# File: build_medicalgraph.py
+# Original Author: lhy<lhy_in_blcu@126.com, https://huangyong.github.io>
+# Author: Tygors
+# Modified by Tygors In: 2024-12
 
 import os
 import json
 from py2neo import Graph,Node
+from loguru import logger
 
 class MedicalGraph:
     def __init__(self):
@@ -51,7 +53,7 @@ class MedicalGraph:
         for data in open(self.data_path, encoding="utf-8"):
             disease_dict = {}
             count += 1
-            print(count)
+            logger.info(count)
             data_json = json.loads(data)
             disease = data_json['name']
             disease_dict['name'] = disease
@@ -163,7 +165,7 @@ class MedicalGraph:
             node = Node(label, name=node_name)
             self.g.create(node)
             count += 1
-            print(count, len(nodes))
+            logger.info(f"count: {count}, len(nodes): {len(nodes)}")
         return
 
     '''创建知识图谱中心疾病的节点'''
@@ -177,7 +179,7 @@ class MedicalGraph:
                         ,cure_way=disease_dict['cure_way'] , cured_prob=disease_dict['cured_prob'])
             self.g.create(node)
             count += 1
-            print(count)
+            logger.info(count)
         return
 
     '''创建知识图谱实体节点类型schema'''
@@ -185,15 +187,15 @@ class MedicalGraph:
         Drugs, Foods, Checks, Departments, Producers, Symptoms, Diseases, disease_infos,rels_check, rels_recommandeat, rels_noteat, rels_doeat, rels_department, rels_commonddrug, rels_drug_producer, rels_recommanddrug,rels_symptom, rels_acompany, rels_category = self.read_nodes()
         self.create_diseases_nodes(disease_infos)
         self.create_node('Drug', Drugs)
-        print(len(Drugs))
+        logger.info(len(Drugs))
         self.create_node('Food', Foods)
-        print(len(Foods))
+        logger.info(len(Foods))
         self.create_node('Check', Checks)
-        print(len(Checks))
+        logger.info(len(Checks))
         self.create_node('Department', Departments)
-        print(len(Departments))
+        logger.info(len(Departments))
         self.create_node('Producer', Producers)
-        print(len(Producers))
+        logger.info(len(Producers))
         self.create_node('Symptom', Symptoms)
         return
 
@@ -230,9 +232,9 @@ class MedicalGraph:
             try:
                 self.g.run(query)
                 count += 1
-                print(rel_type, count, all)
+                logger.info(f"rel_type: {rel_type}, count: {count}, all:{all}")
             except Exception as e:
-                print(e)
+                logger.warning(e)
         return
 
     '''导出数据'''
@@ -268,8 +270,8 @@ class MedicalGraph:
 
 if __name__ == '__main__':
     handler = MedicalGraph()
-    print("step1:导入图谱节点中")
+    logger.info("step1: 导入图谱节点中...")
     handler.create_graphnodes()
-    print("step2:导入图谱边中")      
+    logger.info("step2: 导入图谱边中...")      
     handler.create_graphrels()
     

@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 # coding: utf-8
 # File: data_spider.py
-# Author: lhy<lhy_in_blcu@126.com,https://huangyong.github.io>
-# Date: 18-10-3
+# Original Author: lhy<lhy_in_blcu@126.com, https://huangyong.github.io>
+# Author: Tygors
+# Modified by Tygors In: 2024-12
 
 
 import urllib.request
@@ -24,7 +25,12 @@ class CrimeSpider:
                                  'Chrome/51.0.2704.63 Safari/537.36'}
         req = urllib.request.Request(url=url, headers=headers)
         res = urllib.request.urlopen(req)
-        html = res.read().decode('gbk')
+        try:
+            html = res.read().decode('gbk')
+        except Exception as e:
+            print(e, "trying to decode with utf-8...")
+            html = res.read().decode('utf-8')
+            print("decode with utf-8 OK!!!")
         return html
 
     '''url解析'''

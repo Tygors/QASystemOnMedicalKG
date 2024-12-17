@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 # coding: utf-8
 # File: chatbot_graph.py
-# Author: lhy<lhy_in_blcu@126.com,https://huangyong.github.io>
-# Date: 18-10-4
+# Original Author: lhy<lhy_in_blcu@126.com, https://huangyong.github.io>
+# Author: Tygors
+# Modified by Tygors In: 2024-12
 
 from question_classifier import *
 from question_parser import *
@@ -30,7 +31,7 @@ class ChatBotGraph:
 if __name__ == '__main__':
     handler = ChatBotGraph()
     while 1:
-        question = input('用户:')
+        question = input('请输入问题：')
         answer = handler.chat_main(question)
-        print('小勇:', answer)
+        print('小勇说：', answer)
 

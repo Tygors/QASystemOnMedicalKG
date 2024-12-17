@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 # coding: utf-8
 # File: question_classifier.py
-# Author: lhy<lhy_in_blcu@126.com,https://huangyong.github.io>
-# Date: 18-10-4
+# Original Author: lhy<lhy_in_blcu@126.com, https://huangyong.github.io>
+# Author: Tygors
+# Modified by Tygors In: 2024-12
 
 import os
 import ahocorasick
@@ -20,15 +21,15 @@ class QuestionClassifier:
         self.symptom_path = os.path.join(cur_dir, 'dict/symptom.txt')
         self.deny_path = os.path.join(cur_dir, 'dict/deny.txt')
         # 加载特征词
-        self.disease_wds= [i.strip() for i in open(self.disease_path) if i.strip()]
-        self.department_wds= [i.strip() for i in open(self.department_path) if i.strip()]
-        self.check_wds= [i.strip() for i in open(self.check_path) if i.strip()]
-        self.drug_wds= [i.strip() for i in open(self.drug_path) if i.strip()]
-        self.food_wds= [i.strip() for i in open(self.food_path) if i.strip()]
-        self.producer_wds= [i.strip() for i in open(self.producer_path) if i.strip()]
-        self.symptom_wds= [i.strip() for i in open(self.symptom_path) if i.strip()]
+        self.disease_wds= [i.strip() for i in open(self.disease_path, encoding="utf-8") if i.strip()]
+        self.department_wds= [i.strip() for i in open(self.department_path, encoding="utf-8") if i.strip()]
+        self.check_wds= [i.strip() for i in open(self.check_path, encoding="utf-8") if i.strip()]
+        self.drug_wds= [i.strip() for i in open(self.drug_path, encoding="utf-8") if i.strip()]
+        self.food_wds= [i.strip() for i in open(self.food_path, encoding="utf-8") if i.strip()]
+        self.producer_wds= [i.strip() for i in open(self.producer_path, encoding="utf-8") if i.strip()]
+        self.symptom_wds= [i.strip() for i in open(self.symptom_path, encoding="utf-8") if i.strip()]
         self.region_words = set(self.department_wds + self.disease_wds + self.check_wds + self.drug_wds + self.food_wds + self.producer_wds + self.symptom_wds)
-        self.deny_words = [i.strip() for i in open(self.deny_path) if i.strip()]
+        self.deny_words = [i.strip() for i in open(self.deny_path, encoding="utf-8") if i.strip()]
         # 构造领域actree
         self.region_tree = self.build_actree(list(self.region_words))
         # 构建词典
@@ -48,7 +49,7 @@ class QuestionClassifier:
         self.cureway_qwds = ['怎么治疗', '如何医治', '怎么医治', '怎么治', '怎么医', '如何治', '医治方式', '疗法', '咋治', '怎么办', '咋办', '咋治']
         self.cureprob_qwds = ['多大概率能治好', '多大几率能治好', '治好希望大么', '几率', '几成', '比例', '可能性', '能治', '可治', '可以治', '可以医']
         self.easyget_qwds = ['易感人群', '容易感染', '易发人群', '什么人', '哪些人', '感染', '染上', '得上']
-        self.check_qwds = ['检查', '检查项目', '查出', '检查', '测出', '试出']
+        self.check_qwds = ['检查', '检查项目', '查出', '检查', '测出', '试出','查']
         self.belong_qwds = ['属于什么科', '属于', '什么科', '科室']
         self.cure_qwds = ['治疗什么', '治啥', '治疗啥', '医治啥', '治愈啥', '主治啥', '主治什么', '有什么用', '有何用', '用处', '用途',
                           '有什么好处', '有什么益处', '有何益处', '用来', '用来做啥', '用来作甚', '需要', '要']
