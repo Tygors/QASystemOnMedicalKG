@@ -3,8 +3,8 @@ self-implement of disease centered Medical graph from zero to full and sever as 
 
 # 项目介绍
 
-知识图谱是目前自然语言处理的一个热门方向，关于较全面的参考资料，可以查看[刘老师](https://liuhuanyong.github.io/)的ccks2018参会总结(https://github.com/liuhuanyong/CCKS2018Summary )。  
-与知识图谱相关的另一种形态，即事理图谱，[刘老师](https://liuhuanyong.github.io/)在这方面也尝试性地积累了一些工作，可参考：(https://github.com/liuhuanyong/ComplexEventExtraction )  
+知识图谱是目前自然语言处理的一个热门方向，关于较全面的参考资料，可以查看我的ccks2018参会总结(https://github.com/liuhuanyong/CCKS2018Summary )。  
+与知识图谱相关的另一种形态，即事理图谱，本人在这方面也尝试性地积累了一些工作，可参考：(https://github.com/liuhuanyong/ComplexEventExtraction )  
 关于知识图谱概念性的介绍就不在此赘述。目前知识图谱在各个领域全面开花，如教育、医疗、司法、金融等。本项目立足医药领域，以垂直型医药网站为数据来源，以疾病为核心，构建起一个包含7类规模为4.4万的知识实体，11类规模约30万实体关系的知识图谱。
 本项目将包括以下两部分的内容：
 1) 基于垂直网站数据的医药知识图谱构建
@@ -12,12 +12,11 @@ self-implement of disease centered Medical graph from zero to full and sever as 
 
 # 项目最终效果
 话不多少，直接上图。以下两图是实际问答运行过程中的截图：
-![image](img\chat1.png)
+![image](https://github.com/liuhuanyong/QABasedOnMedicalKnowledgeGraph/blob/master/img/chat1.png)
 
-![image](img\chat2.png)
+![image](https://github.com/liuhuanyong/QABasedOnMedicalKnowledgeGraph/blob/master/img/chat2.png)
 
 # 项目运行方式
-0、docker 安装neo4j，docker pull neo4j:latest，启动时映射好对应的3个端口，7473, 7474, 7687。启动后进入初始账密为neo4j, neo4j，第一次进入会要求重置新密码。Neo4j 5.26.0版本要求最低8位密码。self.g = Graph(auth=("neo4j","你的密码"))  
 1、配置要求：要求配置neo4j数据库及相应的python依赖包。neo4j数据库用户名密码记住，并修改相应文件。  
 2、知识图谱数据导入：python build_medicalgraph.py，导入的数据较多，估计需要几个小时。  
 3、启动问答：python chat_graph.py
@@ -25,7 +24,7 @@ self-implement of disease centered Medical graph from zero to full and sever as 
 # 以下介绍详细方案
 # 一、医疗知识图谱构建
 # 1.1 业务驱动的知识图谱构建框架
-![image](img\kg_route.png)
+![image](https://github.com/liuhuanyong/QABasedOnMedicalKnowledgeGraph/blob/master/img/kg_route.png)
 
 # 1.2 脚本目录
 prepare_data/datasoider.py：网络资讯采集脚本  
@@ -35,7 +34,7 @@ build_medicalgraph.py：知识图谱入库脚本    　　
 
 # 1.3 医药领域知识图谱规模
 1.3.1 neo4j图数据库存储规模
-![image](img\graph_summary.png)
+![image](https://github.com/liuhuanyong/QABasedOnMedicalKnowledgeGraph/blob/master/img/graph_summary.png)
 
 1.3.2 知识图谱实体类型
 
@@ -83,7 +82,7 @@ build_medicalgraph.py：知识图谱入库脚本    　　
 
 # 二、基于医疗知识图谱的自动问答
 # 2.1 技术架构
-![image](img\qa_route.png)
+![image](https://github.com/liuhuanyong/QABasedOnMedicalKnowledgeGraph/blob/master/img/qa_route.png)
 
 # 2.2 脚本结构
 question_classifier.py：问句类型分类脚本  
@@ -198,3 +197,13 @@ chatbot_graph.py：问答程序脚本
 3、本项目以neo4j作为存储，并基于传统规则的方式完成了知识问答，并最终以cypher查询语句作为问答搜索sql，支持了问答服务。  
 4、本项目可以快速部署，数据已经放在data/medical.json当中，本项目的数据，如侵犯相关单位权益，请联系我删除。本数据请勿商用，以免引起不必要的纠纷。在本项目中的部署上，可以遵循项目运行步骤，完成数据库搭建，并提供搜索服务。  
 5、本项目还有不足：关于疾病的起因、预防等，实际返回的是一大段文字，这里其实可以引入事件抽取的概念，进一步将原因结构化表示出来。这个可以后面进行尝试。    
+
+If any question about the project or me ,see https://liuhuanyong.github.io/
+
+如有自然语言处理、知识图谱、事理图谱、社会计算、语言资源建设等问题或合作，可联系我：    
+1、我的github项目介绍：https://liuhuanyong.github.io  
+3、about me:刘焕勇，lhy_in_blcu@126.com.       
+4、我的公众号:老刘说NLP,扫码一键关注： 
+
+![image](https://github.com/liuhuanyong/QABasedOnMedicalKnowledgeGraph/blob/master/img/wechat.jpg)
+
