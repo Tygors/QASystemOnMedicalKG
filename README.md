@@ -17,9 +17,15 @@ self-implement of disease centered Medical graph from zero to full and sever as 
 ![image](img\chat2.png)
 
 # 项目运行方式
-0、docker 安装neo4j，docker pull neo4j:latest，启动时映射好对应的3个端口，7473, 7474, 7687。启动后进入初始账密为neo4j, neo4j，第一次进入会要求重置新密码。Neo4j 5.26.0版本要求最低8位密码。self.g = Graph(auth=("neo4j","你的密码"))  
-1、配置要求：要求配置neo4j数据库及相应的python依赖包。neo4j数据库用户名密码记住，并修改相应文件。  
+0、docker 安装并启动neo4j，启动后进入初始账密为neo4j, neo4j，第一次进入会要求重置新密码。Neo4j 5.26.0版本要求最低8位密码。代码连接self.g = Graph(auth=("neo4j","你的密码"))
+```bash
+docker pull neo4j:latest # 拉取最新neo4j镜像
+docker run -d -p 7473:7473 -p 7474:7474 -p 7687:7687 --name neo4j_vol neo4j:latest # 启动时映射好对应的3个端口，7473, 7474, 7687
+```
+1、配置要求：要求配置neo4j数据库及相应的python依赖包。neo4j数据库用户名密码记住，并修改相应文件。 
+
 2、知识图谱数据导入：python build_medicalgraph.py，导入的数据较多，估计需要几个小时。  
+
 3、启动问答：python chat_graph.py
 
 # 以下介绍详细方案
