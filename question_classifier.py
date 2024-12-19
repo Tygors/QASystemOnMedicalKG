@@ -64,8 +64,8 @@ class QuestionClassifier:
         medical_dict = self.check_medical(question)
         if not medical_dict:
             return {}
-        data['args'] = medical_dict
-        #收集问句当中所涉及到的实体类型
+        data['args'] = medical_dict # {'耳鸣': ['disease', 'symptom'], '百日咳': ['disease']}
+        # 收集问句当中所涉及到的实体类型
         types = []
         for type_ in medical_dict.values():
             types += type_
@@ -163,7 +163,7 @@ class QuestionClassifier:
             question_types = ['symptom_disease']
 
         # 将多个分类结果进行合并处理，组装成一个字典
-        data['question_types'] = question_types
+        data['question_types'] = question_types # {'args': {'耳鸣': ['disease', 'symptom'], '百日咳': ['disease']}, 'question_types': ['disease_acompany', 'disease_do_food']}
 
         return data
 
@@ -200,6 +200,7 @@ class QuestionClassifier:
     def check_medical(self, question):
         region_wds = []
         for i in self.region_tree.iter(question):
+            # (5, (22519, '百日咳'))， 即要将 百日咳 赋值给wd
             wd = i[1][1]
             region_wds.append(wd)
         stop_wds = []
@@ -208,8 +209,7 @@ class QuestionClassifier:
                 if wd1 in wd2 and wd1 != wd2:
                     stop_wds.append(wd1)
         final_wds = [i for i in region_wds if i not in stop_wds]
-        final_dict = {i:self.wdtype_dict.get(i) for i in final_wds}
-
+        final_dict = {i:self.wdtype_dict.get(i) for i in final_wds} # {'耳鸣': ['disease', 'symptom'], '百日咳': ['disease']}
         return final_dict
 
     '''基于特征词进行分类'''
@@ -223,6 +223,6 @@ class QuestionClassifier:
 if __name__ == '__main__':
     handler = QuestionClassifier()
     while 1:
-        question = input('input an question:')
+        question = input('input an question:') # 耳鸣和百日咳有什么并发症，推荐吃什么呢
         data = handler.classify(question)
-        print(data)
+        print(data) # {'args': {'耳鸣': ['disease', 'symptom'], '百日咳': ['disease']}, 'question_types': ['disease_acompany', 'disease_do_food']}
